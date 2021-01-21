@@ -1,11 +1,12 @@
 {
-    "name": "Sonar v2",
+    "name": "Proximiti V1",
     "description": "",
     "dependencies": {
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-sonar": "github:microsoft/pxt-sonar#v0.0.5"
+        "pxt-sonar": "github:microsoft/pxt-sonar#v0.0.5",
+        "robotbit": "github:leo266/la_motor_rgb#54126bb00678aaac4e986ab11933cc96d2872d5a"
     },
     "files": [
         "main.blocks",
