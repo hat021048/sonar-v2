@@ -1,5 +1,5 @@
 function Sjekk () {
-    if (Hinder3 == 1 && Hinder2 == 1) {
+    if (Hinder1 == 1 && (Hinder2 == 1 && Hinder3 == 1)) {
         Fram()
     } else {
         Bak()
@@ -11,6 +11,9 @@ function Sjekk () {
             HøyreF()
             basic.pause(1000)
             HøyreF()
+            basic.pause(1000)
+        } else if (Hinder1 == 0) {
+            VenstreF()
             basic.pause(1000)
         }
     }
@@ -55,14 +58,16 @@ function Fram () {
     FartF
     )
 }
-let Hinder2 = 0
 let Hinder3 = 0
+let Hinder2 = 0
+let Hinder1 = 0
 let FartB = 0
 let FartF = 0
 basic.showIcon(IconNames.Heart)
 FartF = 150
 FartB = -100
 basic.forever(function () {
+    Hinder1 = pins.digitalReadPin(DigitalPin.P13)
     Hinder2 = pins.digitalReadPin(DigitalPin.P14)
     Hinder3 = pins.digitalReadPin(DigitalPin.P15)
     Sjekk()
