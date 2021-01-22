@@ -3,18 +3,18 @@ function Sjekk () {
         Fram()
     } else {
         Bak()
-        basic.pause(2000)
+        basic.pause(Delay * 2)
         if (Hinder3 == 0) {
             HøyreF()
-            basic.pause(1000)
+            basic.pause(Delay)
         } else if (Hinder2 == 0) {
             HøyreF()
-            basic.pause(1000)
+            basic.pause(Delay)
             HøyreF()
-            basic.pause(1000)
+            basic.pause(Delay)
         } else if (Hinder1 == 0) {
             VenstreF()
-            basic.pause(1000)
+            basic.pause(Delay)
         }
     }
 }
@@ -61,11 +61,13 @@ function Fram () {
 let Hinder3 = 0
 let Hinder2 = 0
 let Hinder1 = 0
+let Delay = 0
 let FartB = 0
 let FartF = 0
 basic.showIcon(IconNames.Heart)
-FartF = 150
+FartF = 100
 FartB = -100
+Delay = 500
 basic.forever(function () {
     Hinder1 = pins.digitalReadPin(DigitalPin.P13)
     Hinder2 = pins.digitalReadPin(DigitalPin.P14)
