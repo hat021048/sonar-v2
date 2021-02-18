@@ -1,21 +1,19 @@
 function Sjekk () {
-    if (Hinder1 == 1 && (Hinder2 == 1 && Hinder3 == 1)) {
+    if (HinderMF == 1 && (HinderHF == 1 && HinderVF == 1)) {
         Fram()
-    } else {
+    } else if (HinderMF != 1) {
         Bak()
-        basic.pause(Delay * 2)
-        if (Hinder3 == 0) {
-            HøyreF()
-            basic.pause(Delay)
-        } else if (Hinder2 == 0) {
-            HøyreF()
-            basic.pause(Delay)
-            HøyreF()
-            basic.pause(Delay)
-        } else if (Hinder1 == 0) {
-            VenstreF()
-            basic.pause(Delay)
+        if (HinderVB != 1) {
+            Stopp()
         }
+    } else if (HinderVF != 1) {
+        Bak()
+    } else if (HinderHF != 1) {
+        Bak()
+    } else if (false) {
+        Stopp()
+    } else {
+    	
     }
 }
 function VenstreF () {
@@ -27,20 +25,24 @@ function VenstreF () {
     )
 }
 function Stopp () {
+    pins.analogWritePin(AnalogPin.P0, 0)
+    pins.analogWritePin(AnalogPin.P1, 0)
+}
+function HøyreBak () {
     robotbit.MotorRunDual(
     robotbit.Motors.M1A,
-    0,
+    FartB,
     robotbit.Motors.M2A,
     0
     )
 }
 function Bak () {
-    robotbit.MotorRunDual(
-    robotbit.Motors.M1A,
-    FartB,
-    robotbit.Motors.M2A,
-    FartB
-    )
+    pins.digitalWritePin(DigitalPin.P3, 0)
+    pins.digitalWritePin(DigitalPin.P4, 1)
+    pins.analogWritePin(AnalogPin.P0, FartB)
+    pins.digitalWritePin(DigitalPin.P7, 0)
+    pins.digitalWritePin(DigitalPin.P6, 1)
+    pins.analogWritePin(AnalogPin.P1, FartB)
 }
 function HøyreF () {
     robotbit.MotorRunDual(
@@ -50,27 +52,38 @@ function HøyreF () {
     0
     )
 }
-function Fram () {
+function VenstreBak () {
     robotbit.MotorRunDual(
     robotbit.Motors.M1A,
-    FartF,
+    0,
     robotbit.Motors.M2A,
-    FartF
+    FartB
     )
 }
-let Hinder3 = 0
-let Hinder2 = 0
-let Hinder1 = 0
-let Delay = 0
+function Fram () {
+    pins.digitalWritePin(DigitalPin.P3, 1)
+    pins.digitalWritePin(DigitalPin.P4, 0)
+    pins.analogWritePin(AnalogPin.P0, FartF)
+    pins.digitalWritePin(DigitalPin.P7, 1)
+    pins.digitalWritePin(DigitalPin.P6, 0)
+    pins.analogWritePin(AnalogPin.P1, FartF)
+}
+let HinderHB = 0
+let HinderVB = 0
+let HinderVF = 0
+let HinderHF = 0
+let HinderMF = 0
 let FartB = 0
 let FartF = 0
-basic.showIcon(IconNames.Heart)
-FartF = 100
-FartB = -100
-Delay = 500
+led.enable(false)
+FartF = 500
+FartB = 300
+let Delay = 500
 basic.forever(function () {
-    Hinder1 = pins.digitalReadPin(DigitalPin.P13)
-    Hinder2 = pins.digitalReadPin(DigitalPin.P14)
-    Hinder3 = pins.digitalReadPin(DigitalPin.P15)
+    HinderMF = pins.digitalReadPin(DigitalPin.P0)
+    HinderHF = pins.digitalReadPin(DigitalPin.P12)
+    HinderVF = pins.digitalReadPin(DigitalPin.P1)
+    HinderVB = pins.digitalReadPin(DigitalPin.P14)
+    HinderHB = pins.digitalReadPin(DigitalPin.P15)
     Sjekk()
 })
